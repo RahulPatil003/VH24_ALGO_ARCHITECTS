@@ -8,16 +8,16 @@ import { Supplier } from '../../models/supplier.model.js'
 import { Institute } from '../../models/institute.model.js'
 
 export const login = asyncHandler(async (req, res) => {
-    const { email, password,role } = req.body;
-    console.log("Req.body", req.body, req.user);
-    const { id, type } = req.user;
+    const { data,userType } = req.body;
+
+    const {email,password} = data;
   
     let user;
-    if (role === 'donor') {
+    if (userType === 'donor') {
       user = await Donor.findOne({ email });
-    } else if (role === 'institute') {
+    } else if (userType === 'institute') {
       user = await Institute.findOne({ email });
-    } else if (role === 'supplier') {
+    } else if (userType === 'supplier') {
       user = await Supplier.findOne({ email });
     }
   
@@ -36,10 +36,9 @@ export const login = asyncHandler(async (req, res) => {
       return res.status(401).json({ msg: "Invalid credentials" });
     }
   
-    const token = generateToken(user._id, type);
+    const token = generateToken(user._id, userType);
     return res
       .status(200)
-      .cookie('token', token, { httpOnly: true, secure: true })
-      .json({ msg: "Login Successful" });
+      .json({ msg: "Login Successful",token:token });
   });
 

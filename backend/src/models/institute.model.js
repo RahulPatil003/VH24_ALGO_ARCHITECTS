@@ -8,7 +8,7 @@ const instituteSchema = new mongoose.Schema(
     },
     type: {
       type: String,
-      enum: ["ngo", "orphanage", "welfare", "rehabilitaion", "charity"],
+      enum: ["ngo", "orphanage", "welfare", "rehabilitation", "charity"],
     },
     email: {
       type: String,

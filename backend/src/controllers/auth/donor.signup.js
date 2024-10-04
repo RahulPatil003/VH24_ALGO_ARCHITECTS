@@ -31,7 +31,7 @@ export const donorSignUp = asyncHandler(async(req,res)=>{
             return res.status(500).json({msg:"Error in creating an account"})
         }
         const token =  generateToken(user._id,"donor")
-        return res.status(201).cookie('token',token,{httpOnly:true, secure:true}).json({msg:"Signup successfull"})
+        return res.status(201).json({msg:"Signup successfull",token:token})
 
     } catch (error) {
         console.log(error)
