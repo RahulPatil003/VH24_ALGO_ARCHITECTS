@@ -32,4 +32,4 @@ const supplierSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export default Supplier = mongoose.model("Supplier", supplierSchema);
+export const Supplier = mongoose.model("Supplier", supplierSchema);
