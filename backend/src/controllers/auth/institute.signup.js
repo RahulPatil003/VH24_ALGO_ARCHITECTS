@@ -12,7 +12,7 @@ export const instituteSignUp = asyncHandler(async(req,res)=>{
             return res.status(400).json({msg:"user Already Exists"})
         }
         const hashedPassword = await bcryptjs.hash(password,10)
-        const newLocation =  Location.create({
+        const newLocation = await Location.create({
             address:location.address,
             pincode:location.pincode,
             longitude:location.longitude,
@@ -30,7 +30,7 @@ export const instituteSignUp = asyncHandler(async(req,res)=>{
             return res.status(500).json({msg:"Error in creating an account"})
         }
         const token =  generateToken(user._id,"institute")
-        return res.status(201).cookie('token',token,{httpOnly:true, secure:true}).json({msg:"Signup successfull"})
+        return res.status(201).json({msg:"Signup successfull",token:token})
 
     } catch (error) {
         console.log(error)

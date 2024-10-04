@@ -7,6 +7,10 @@ import DonorDashboard from "./dashboards/DonorDashboard"
 import InstituteDashboard from "./dashboards/InstituteDashboard"
 import SupplierDashboard from "./dashboards/SupplierDashboard"
 import { Sidebar } from "lucide-react"
+import DonorSignup from "./pages/SignUp/DonorSignup"
+import SupplierSignup from "./pages/SignUp/SupplierSignup"
+import InstituteSignup from "./pages/SignUp/InstituteSignup"
+// import AuthPage from "./pages/AuthPage"
 
 
 function App() {
@@ -17,6 +21,10 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login/>} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/donor" element={<DonorSignup/>}/>
+        <Route path="/institute" element={<InstituteSignup/>}/>
+        <Route path="/supplier" element={<SupplierSignup/>}/>
+
 
         // User Registrations Routes
         <Route path="/donorRegistration" element={<Signup />} />
@@ -29,6 +37,7 @@ function App() {
         <Route path="/supplierDashboard" element={<SupplierDashboard/>} />
 
         <Route path="/sidebar" element={<Sidebar/>} />
+        {/* <Route path="/auth" element={<AuthPage/>} /> */}
       </Routes>
     </>
   )

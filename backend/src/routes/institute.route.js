@@ -1,7 +1,7 @@
 import {Router} from 'express'
 
 import { verifyJWT } from '../middlewares/auth.middleware.js';
-import { raiseRequest } from '../controller/institute.controller.js';
+import { raiseRequest } from '../controllers/institute.controller.js';
 
 const router = Router();
 

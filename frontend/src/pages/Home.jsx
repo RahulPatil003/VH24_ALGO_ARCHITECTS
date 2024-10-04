@@ -2,7 +2,7 @@ import React from 'react'
 import { Button } from '../components/ui/Button'
 import { Input } from '../components/ui/Input'
 import { Label } from '../components/ui/Label'
-import { Heart, Building, Truck, CheckCircle } from "lucide-react"
+import { Heart, Building, Truck, CheckCircle, Gift, Users, Shield } from "lucide-react"
 import { useNavigate, Link } from 'react-router-dom'
 
 
@@ -63,13 +63,33 @@ export default function Home() {
           </div>
         </section>
 
-        {/* <section className="text-center bg-blue-50 p-8 rounded-lg mb-16">
-          <h2 className="text-2xl font-bold mb-4">Join Our Community Today</h2>
-          <p className="text-gray-600 mb-6">Together, we can make a lasting impact on communities in need</p>
-          <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white">Sign Up Now</Button>
-        </section> */}
-
-        <section className="bg-white p-8 rounded-lg shadow-lg">
+        <section className="bg-white rounded-lg py-16">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-12">Why Choose Our Platform?</h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="flex flex-col items-center text-center">
+              <Shield className="w-12 h-12 text-blue-500 mb-4" />
+              <h3 className="text-xl font-semibold mb-2">Secure & Transparent</h3>
+              <p className="text-gray-600">Every transaction is secure and fully traceable</p>
+            </div>
+            <div className="flex flex-col items-center text-center">
+              <Gift className="w-12 h-12 text-red-500 mb-4" />
+              <h3 className="text-xl font-semibold mb-2">Diverse Causes</h3>
+              <p className="text-gray-600">Support Verified Causes Aligned Values</p>
+            </div>
+            <div className="flex flex-col items-center text-center">
+              <Users className="w-12 h-12 text-green-500 mb-4" />
+              <h3 className="text-xl font-semibold mb-2">Community-Driven</h3>
+              <p className="text-gray-600">Collaborate, Donate, and Amplify Impact</p>
+            </div>
+          </div>
+        </div>
+        <div className="text-center mt-6">
+            {/* <p className="text-xl font-semibold mb-4">Ready to make a difference?</p> */}
+            <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white"><Link to="/signup">Join DonorNet Today</Link></Button>
+        </div>
+      </section>
+        {/* <section className="bg-white p-8 rounded-lg shadow-lg">
           <h2 className="text-3xl font-bold mb-6 text-center">Why Choose DonorNet?</h2>
           <div className="grid md:grid-cols-2 gap-8">
             <div>
@@ -113,10 +133,10 @@ export default function Home() {
             <p className="text-xl font-semibold mb-4">Ready to make a difference?</p>
             <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white"><Link to="/signup">Join DonorNet Today</Link></Button>
           </div>
-        </section>
+        </section> */}
       </main>
 
-      <footer className="bg-gray-100 p-4 text-center text-gray-600 mt-16">
+      <footer className="bg-gray-100 p-4 text-center text-gray-600 ">
         <p>&copy; 2024 DonorNet. All rights reserved.</p>
       </footer>
     </div>
