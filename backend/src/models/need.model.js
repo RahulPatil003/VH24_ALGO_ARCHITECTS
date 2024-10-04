@@ -31,6 +31,9 @@ const needSchema = new mongoose.Schema(
             quantity: {
               type: Number,
             },
+            price: {
+              type: Number,
+            },
             status: {
               type: String,
               enum: ["pending", "delivered"],
@@ -43,6 +46,9 @@ const needSchema = new mongoose.Schema(
             supplierId: {
               type: mongoose.Schema.Types.ObjectId,
               ref: "Supplier",
+            },
+            name: {
+              type: String,
             },
             price: {
               type: Number,
