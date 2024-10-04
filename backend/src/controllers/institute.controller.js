@@ -13,7 +13,7 @@ export const raiseRequest = asyncHandler(async (req, res) => {
     res.status(404).json({ message: "Institute not found" });
   }
   const newItems = await Need.create({
-    institute: institute._id,
+    instituteId: institute._id,
     items: items,
   });
   res.status(201).json({ message: "Request raised successfully", newItems });
