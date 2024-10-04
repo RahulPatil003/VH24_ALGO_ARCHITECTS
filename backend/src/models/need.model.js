@@ -54,4 +54,4 @@ const needSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export default Need = mongoose.model("Need", needSchema);
+export const Need = mongoose.model("Need", needSchema);

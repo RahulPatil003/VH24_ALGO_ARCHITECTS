@@ -32,4 +32,4 @@ const instituteSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export default Institute = mongoose.model("Institute", instituteSchema);
+export const Institute = mongoose.model("Institute", instituteSchema);

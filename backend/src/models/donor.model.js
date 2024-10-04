@@ -28,4 +28,4 @@ const donorSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export default Donor = mongoose.model("Donor", donorSchema);
+export const Donor = mongoose.model("Donor", donorSchema);
