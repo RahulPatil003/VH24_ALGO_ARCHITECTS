@@ -14,9 +14,13 @@ const transactionSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Supplier",
     },
+    needId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Need",
+    },
     status: {
       type: String,
-      enum: ["successfully", "unsuccessfully"],
+      enum: ["successfull", "unsuccessfull"],
     },
   },
   { timestamps: true }
