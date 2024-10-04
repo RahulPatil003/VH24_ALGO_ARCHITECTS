@@ -1,20 +1,29 @@
 import React from 'react';
+import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { Button } from '../../components/ui/Button';
 import { Input } from '../../components/ui/Input';
 import { Label } from '../../components/ui/Label';
 import { Mail, Lock, User, Phone } from 'lucide-react';
-
+import { Navigate, useNavigate } from 'react-router-dom';
 const DonorSignup = () => {
+  const navigate = useNavigate()
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
+
     console.log(data); // Handle form data submission to the backend here
     // Make API call to submit data (e.g., fetch or axios)
+    axios.post("http://localhost:5000/api/v1/auth/donorSignUp",data)
+    .then(res=>{
+        console.log(res.data)
+        navigate('/donorDashboard')
+    })
+    .catch(error=>console.log(error));
   };
 
   return (

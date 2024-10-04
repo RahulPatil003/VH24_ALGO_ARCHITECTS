@@ -1,11 +1,14 @@
 import React from 'react';
+import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { Button } from '../../components/ui/Button';
 import { Input } from '../../components/ui/Input';
 import { Label } from '../../components/ui/Label';
 import { Mail, Lock, User, Phone } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const InstituteSignup = () => {
+  const navigate = useNavigate()
   const {
     register,
     handleSubmit,
@@ -15,6 +18,12 @@ const InstituteSignup = () => {
   const onSubmit = (data) => {
     console.log(data); // Handle form data submission to the backend here
     // Make API call to submit data (e.g., fetch or axios)
+    axios.post("http://localhost:5000/api/v1/auth/instituteSignUp",data)
+    .then(res=>{
+        console.log(res.data)
+        navigate("/instituteDashboard")
+    })
+    .catch(error=>console.log(error));
   };
 
   return (
