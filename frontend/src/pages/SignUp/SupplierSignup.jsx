@@ -21,6 +21,7 @@ const SupplierSignup = () => {
     axios.post("http://localhost:5000/api/v1/auth/supplierSignUp",data)
     .then(res=>{
         console.log(res.data)
+        localStorage.setItem("token",JSON.stringify(res.data.token));
         navigate('/supplierDashboard')
     })
     .catch(error=>console.log(error));

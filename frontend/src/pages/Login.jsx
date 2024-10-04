@@ -17,9 +17,10 @@ export default function Login() {
   const onSubmit = (data) => {
     // Handle form submission logic here
     console.log('Logged in', data);
-    axios.post("http://localhost:5000/api/v1/auth/login", data)
+    axios.post("http://localhost:5000/api/v1/auth/login", {data,userType})
       .then(res => {
         console.log(res.data);
+        localStorage.setItem("token",JSON.stringify(res.data.token));
         if (userType === 'donor') {
           navigate('/donorDashboard');
       } else if (userType === 'institute') {

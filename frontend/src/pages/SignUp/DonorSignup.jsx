@@ -21,6 +21,7 @@ const DonorSignup = () => {
     axios.post("http://localhost:5000/api/v1/auth/donorSignUp",data)
     .then(res=>{
         console.log(res.data)
+        localStorage.setItem("token",JSON.stringify(res.data.token));
         navigate('/donorDashboard')
     })
     .catch(error=>console.log(error));
