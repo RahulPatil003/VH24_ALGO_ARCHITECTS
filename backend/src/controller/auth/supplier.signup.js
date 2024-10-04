@@ -2,6 +2,7 @@ import asyncHandler from 'express-async-handler'
 import {Supplier} from '../../models/supplier.model.js'
 import bcryptjs from 'bcryptjs'
 import { generateToken } from '../../utils/generateToken.js'
+import { Location } from '../../models/location.model.js'
 
 export const supplierSignUp = asyncHandler(async(req,res)=>{
     try {
@@ -13,13 +14,20 @@ export const supplierSignUp = asyncHandler(async(req,res)=>{
         }
         const hashedPassword = await bcryptjs.hash(password,10)
       
-
+        const newLocation =  Location.create({
+            address:location.address,
+            pincode:location.pincode,
+            longitude:location.longitude,
+            latitude:location.latitude
+        })
+    
         const user = await Supplier.create({
             name,
             type,
             email,
             password:hashedPassword,
             phNo,
+            location: newLocation._id
         })
         if(!user){
             return res.status(500).json({msg:"Error in creating an account"})

@@ -1,7 +1,6 @@
 import asyncHandler from 'express-async-handler'
 import {Donor} from '../../models/donor.model.js'
-import {ApiError} from '../../utils/ApiError.js'
-import {ApiResponse} from '../../utils/ApiResponse.js'
+import { Location } from '../../models/location.model.js'
 import bcryptjs from 'bcryptjs'
 import { generateToken } from '../../utils/generateToken.js'
 
@@ -15,12 +14,18 @@ export const donorSignUp = asyncHandler(async(req,res)=>{
         }
         const hashedPassword = await bcryptjs.hash(password,10)
       
-
+        const newLocation =  Location.create({
+            address:location.address,
+            pincode:location.pincode,
+            longitude:location.longitude,
+            latitude:location.latitude
+        })
         const user = await Donor.create({
             fullName,
             email,
             password:hashedPassword,
             phNo,
+            location: newLocation._id
         })
         if(!user){
             return res.status(500).json({msg:"Error in creating an account"})

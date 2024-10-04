@@ -12,7 +12,10 @@ export const verifyJWT = asyncHandler(async (req, res, next) => {
 
     const decodedToken = jwt.verify(token, process.env.TOKEN_SECRET);
     console.log(decodedToken)
-    req.type = decodedToken.str
+    req.user = {
+        id: decodedToken.id,
+        type: decodedToken.str
+    }
     next();
   } catch (error) {
     res.status(401).json({msg:'Internal Server error'})
