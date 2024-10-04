@@ -3,20 +3,44 @@ import { Need } from "../models/need.model.js";
 import { Institute } from "../models/institute.model.js";
 import { Supplier } from "../models/supplier.model.js";
 import { Feedback } from "../models/feedback.model.js";
-
+import {calculateDistance} from '../utils/minDistance.js'
 export const raiseRequest = asyncHandler(async (req, res) => {
-  const { id } = req.user;
+  const { id, type } = req.user; 
   const { items } = req.body;
-  console.log(req.body);
-  const institute = await Institute.findById(id);
-  if (!institute) {
-    res.status(404).json({ message: "Institute not found" });
+  
+  if (type !== 'institute') {
+    return res.status(403).json({ message: "Only institutes can raise requests" });
   }
+  
+  console.log(req.body);
+  console.log("Req.user", req.user);
+
+  const institute = await Institute.findById(id);
+  console.log("Institute ", institute);
+
+  if (!institute) {
+    return res.status(404).json({ message: "Institute not found" });
+  }
+
   const newItems = await Need.create({
-    institute: institute._id,
+    instituteId: institute._id,
     items: items,
   });
+
   res.status(201).json({ message: "Request raised successfully", newItems });
+
+  
+  const locInstitute = await Institute.findById(id).populate('location');
+  const { longitude, latitude } = locInstitute.location;
+
+  const allSuppliers = await Supplier.find().populate('location');
+  const nearBySuppliers = allSuppliers.map((supplier) => {
+    const { latitude: supLat, longitude: supLon } = supplier.location;
+    const distance = calculateDistance(longitude, latitude, supLat, supLon);
+    return { supplier, distance };
+  });
+
+  console.log(nearBySuppliers);
 });
 
 export const giveFeedback = asyncHandler(async (req, res) => {

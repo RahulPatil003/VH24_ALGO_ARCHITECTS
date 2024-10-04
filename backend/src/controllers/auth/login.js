@@ -7,31 +7,39 @@ import { generateToken } from '../../utils/generateToken.js'
 import { Supplier } from '../../models/supplier.model.js'
 import { Institute } from '../../models/institute.model.js'
 
-export const login = asyncHandler(async(req,res)=>{
-    const {email, password} = req.body;
-    console.log(req.body, req.user)
-    const {id, type} = req.user
+export const login = asyncHandler(async (req, res) => {
+    const { email, password,role } = req.body;
+    console.log("Req.body", req.body, req.user);
+    const { id, type } = req.user;
+  
     let user;
-    if(type=='donor'){
-        user = await Donor.findOne({email});
+    if (role === 'donor') {
+      user = await Donor.findOne({ email });
+    } else if (role === 'institute') {
+      user = await Institute.findOne({ email });
+    } else if (role === 'supplier') {
+      user = await Supplier.findOne({ email });
     }
-    if(type == 'institute'){
-        user = await Institute.findOne({email});
+  
+    if (!user) {
+      return res.status(404).json({ msg: "User Does Not Exist" });
     }
-    if(type== 'supplier'){
-        user = await Supplier.findOne({email});
+  
+    console.log("User", user);
+  
+    if (!email || !password) {
+      return res.status(400).json({ msg: "Some fields are missing" });
     }
-    if(!user){
-        return res.status(404).json({msg:"User Does Not Exists"})
+  
+    const isPasswordCorrect = await bcryptjs.compare(password, user.password);
+    if (!isPasswordCorrect) {
+      return res.status(401).json({ msg: "Invalid credentials" });
     }
-    console.log(user)
-    if(!email || !password) {
-        res.status(400).json({msg:"some fields are missing"})
-    }
-    if(bcryptjs.compare(user.password,password)){
-        const token = generateToken(user._id,type)
-        return res.status(200).clearCookie("token").cookie('token',token,{httpOnly:true, secure:true}).json({msg:"LogIn Successful"})
-    }
-    return res.status(500).json({msg:"Something went wrong"})
-})
+  
+    const token = generateToken(user._id, type);
+    return res
+      .status(200)
+      .cookie('token', token, { httpOnly: true, secure: true })
+      .json({ msg: "Login Successful" });
+  });
 

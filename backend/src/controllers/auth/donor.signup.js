@@ -14,7 +14,7 @@ export const donorSignUp = asyncHandler(async(req,res)=>{
         }
         const hashedPassword = await bcryptjs.hash(password,10)
       
-        const newLocation =  Location.create({
+        const newLocation = await Location.create({
             address:location.address,
             pincode:location.pincode,
             longitude:location.longitude,
