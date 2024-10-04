@@ -9,8 +9,15 @@ const feedbackSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Supplier",
   },
+  donorId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Supplier",
+  },
   feedback: {
     type: String,
+  },
+  rating: {
+    type: Number,
   },
 });
 

@@ -28,6 +28,9 @@ const supplierSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Location",
     },
+    rating: {
+      type: Number,
+    },
   },
   { timestamps: true }
 );

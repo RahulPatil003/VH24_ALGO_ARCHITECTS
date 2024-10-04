@@ -14,9 +14,6 @@ const needSchema = new mongoose.Schema(
         quantity: {
           type: Number,
         },
-        amount: {
-          type: Number,
-        },
         isFullfilled: {
           type: Boolean,
           default: false,
@@ -31,9 +28,6 @@ const needSchema = new mongoose.Schema(
               type: mongoose.Schema.Types.ObjectId,
               ref: "Supplier",
             },
-            amount: {
-              type: Number,
-            },
             quantity: {
               type: Number,
             },
@@ -41,6 +35,20 @@ const needSchema = new mongoose.Schema(
               type: String,
               enum: ["pending", "delivered"],
               default: "pending",
+            },
+          },
+        ],
+        bids: [
+          {
+            supplierId: {
+              type: mongoose.Schema.Types.ObjectId,
+              ref: "Supplier",
+            },
+            price: {
+              type: Number,
+            },
+            deliveryTime: {
+              type: Number,
             },
           },
         ],
