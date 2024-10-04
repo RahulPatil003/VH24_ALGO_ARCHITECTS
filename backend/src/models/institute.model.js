@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import { Location } from "./location.model.js";
 
 const instituteSchema = new mongoose.Schema(
   {
