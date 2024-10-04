@@ -10,4 +10,4 @@ router.route('/donorSignUp').post(donorSignUp);
 router.route('/supplierSignUp').post(supplierSignUp);
 router.route('/instituteSignUp').post(instituteSignUp)
 router.route('/login/:type').post(verifyJWT,login);
-export default router;
+export default router; 
