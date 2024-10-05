@@ -4,6 +4,8 @@ import { Institute } from "../models/institute.model.js";
 import { Supplier } from "../models/supplier.model.js";
 import { Feedback } from "../models/feedback.model.js";
 import {calculateDistance} from '../utils/minDistance.js'
+import { sendEmailToSuppliers } from "../utils/SendMail.js";
+
 export const raiseRequest = asyncHandler(async (req, res) => {
   const { id, type } = req.user; 
   const { items, token } = req.body;
@@ -41,6 +43,12 @@ export const raiseRequest = asyncHandler(async (req, res) => {
   });
 
   console.log(nearBySuppliers);
+  const suppliers = await Supplier.find();
+  const suppliersEmails = suppliers.map(supplier => supplier.email);
+  console.log(suppliersEmails)
+     await sendEmailToSuppliers(suppliersEmails, items)
+  
+
 });
 
 export const giveFeedback = asyncHandler(async (req, res) => {
