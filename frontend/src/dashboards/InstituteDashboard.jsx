@@ -24,7 +24,7 @@ export default function InstituteDashboard() {
     const token = localStorage.getItem("token");
     axios.post("http://localhost:5000/api/v1/institute/raise-request",data,{
       headers:{
-        'Authorization':` Bearer ${token}`,
+        'Authorization':`Bearer ${token}`,
         'Content-Type': 'application/json', 
       }
     })

@@ -3,15 +3,17 @@ import { Need } from "../models/need.model.js";
 import { Institute } from "../models/institute.model.js";
 import { Supplier } from "../models/supplier.model.js";
 import { Feedback } from "../models/feedback.model.js";
-import {calculateDistance} from '../utils/minDistance.js'
+import { calculateDistance } from "../utils/minDistance.js";
 export const raiseRequest = asyncHandler(async (req, res) => {
-  const { id, type } = req.user; 
-  const { items, token } = req.body;
-  
-  if (type !== 'institute') {
-    return res.status(403).json({ message: "Only institutes can raise requests" });
+  const { id, type } = req.user;
+  const { items } = req.body;
+
+  if (type !== "institute") {
+    return res
+      .status(403)
+      .json({ message: "Only institutes can raise requests" });
   }
-  
+
   console.log(req.body);
   console.log("Req.user", req.user);
 
@@ -29,11 +31,10 @@ export const raiseRequest = asyncHandler(async (req, res) => {
 
   res.status(201).json({ message: "Request raised successfully", newItems });
 
-  
-  const locInstitute = await Institute.findById(id).populate('location');
+  const locInstitute = await Institute.findById(id).populate("location");
   const { longitude, latitude } = locInstitute.location;
 
-  const allSuppliers = await Supplier.find().populate('location');
+  const allSuppliers = await Supplier.find().populate("location");
   const nearBySuppliers = allSuppliers.map((supplier) => {
     const { latitude: supLat, longitude: supLon } = supplier.location;
     const distance = calculateDistance(longitude, latitude, supLat, supLon);
@@ -41,6 +42,19 @@ export const raiseRequest = asyncHandler(async (req, res) => {
   });
 
   console.log(nearBySuppliers);
+});
+
+export const getNeeds = asyncHandler(async (req, res) => {
+  const { id, type } = req.user;
+
+  const needs = await Need.find({ id })
+    .select("items.name items.quanity items.isFullfilled")
+    .lean();
+
+  if (!needs) {
+    return res.status(404).json({ message: "needs not found" });
+  }
+
 });
 
 export const giveFeedback = asyncHandler(async (req, res) => {
