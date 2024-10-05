@@ -6,7 +6,7 @@ import { Feedback } from "../models/feedback.model.js";
 import {calculateDistance} from '../utils/minDistance.js'
 export const raiseRequest = asyncHandler(async (req, res) => {
   const { id, type } = req.user; 
-  const { items } = req.body;
+  const { items, token } = req.body;
   
   if (type !== 'institute') {
     return res.status(403).json({ message: "Only institutes can raise requests" });
